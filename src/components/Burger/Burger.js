@@ -8,7 +8,7 @@ const burger = (props) => {
         //console.log(Object.keys(props.ingredients));
         return [...Array(props.ingredients[igKey])].map((_, i) => {
            return <BurgerIngredient key={igKey+i} type={igKey} />;
-        } );
+        });
     } )
     .reduce((arr, el) => {
         return arr.concat(el);
@@ -18,7 +18,7 @@ const burger = (props) => {
         transformedIngredients = <p>Please star adding ingredient</p>;
     }
 
-    console.log(transformedIngredients);
+    
 
     return (
         <div className={classes.Burger}>
