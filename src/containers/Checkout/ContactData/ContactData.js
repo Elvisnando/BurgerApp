@@ -7,31 +7,67 @@ import Input from '../../../components/UI/Input/Input';
 class ContactData extends Component {
 
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postaCode: ''
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Strett'
+                },
+                value: ''
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Zip Code'
+                },
+                value: ''
+            },
+            contry: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country'
+                },
+                value: ''
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Your-Email'
+                },
+                value: ''
+            },
+            deliverMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'fastest', dispalyValue: 'Fastest' },
+                        { value: 'cheapest', dispalyValue: 'Cheapest' }
+                    ]
+                },
+                value: ''
+            }
         },
         loading: false
     }
 
-    orderHandler =  (event) => {
+    orderHandler = (event) => {
         event.preventDefault();
         this.setState({ loading: true });
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
-            customers: {
-                name: 'Elvis Nazifi',
-                adress: {
-                    street: 'Irisweg 1',
-                    zipCode: '41351',
-                    contry: 'Germany'
-                },
-                email: 'test@test.com'
-            },
-            deliverMethod: 'By track'
         }
         axios.post('/orders.json', order)
             .then(respose => {
@@ -43,21 +79,36 @@ class ContactData extends Component {
             .catch(error => {
                 this.setState({ loading: false });
             });
-        
+
     }
 
     render() {
+        const formElementtsArray = [];
+
+        for (let key in this.state.orderForm) {
+
+            formElementtsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            });
+        }
+
+
         let form = (
             <form>
-                    <Input inputtype="input" type="text" name="email" placeholder="Your Mail" />
-                    <Input inputtype="input" type="text" name="street" placeholder="Street" />
-                    <Input inputtype="input" type="text" name="name" placeholder="Your name" />
-                    <Input inputtype="input" type="text" name="postal" placeholder="Postal code" />
-                    <Button btnType="Success" cliked={this.orderHandler}>ORDER</Button>
-                </form>
-
+                {formElementtsArray.map(formElement => (
+                    
+                    <Input
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value} />
+                ))}
+                <Button btnType="Success" cliked={this.orderHandler}>ORDER</Button>
+            </form>
         );
-        if(this.state.loading) {
+
+        if (this.state.loading) {
             form = <Spinner />;
         }
         return (
