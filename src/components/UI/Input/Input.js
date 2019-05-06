@@ -2,10 +2,11 @@ import React from 'react';
 import classes from './Input.css';
 
 const input = (props) => {
+    console.log(props);
 
     let inputElement = null;
 
-    switch (props.inputType) {
+    switch (props.elementType) {
         case ('input'):
             inputElement = <input
                 className={classes.InputElement}
@@ -19,27 +20,28 @@ const input = (props) => {
                 value={props.value} />;
             break;
         case ('select'):
-             inputElement = (
+            inputElement = (
                 <select
                     className={classes.InputElement}
                     value={props.value}>
-                    
+
                     {props.elementConfig.options.map(option => (
-                        
+
                         <option key={option.value} value={option.value}>
                             {option.dispalyValue}
                         </option>
-                        
-                      ))}
+
+                    ))}
                 </select>
             )
             break;
-
-        default:
+            default:
             inputElement = <input
-                className={classes.InputElement}
-                {...props.elementConfig}
-                value={props.value} />;
+            className={classes.InputElement}
+            {...props.elementConfig}
+            value={props.value} />;
+
+       
     }
 
     return (

@@ -53,10 +53,10 @@ class ContactData extends Component {
                 elementConfig: {
                     options: [
                         { value: 'fastest', dispalyValue: 'Fastest' },
-                        { value: 'cheapest', dispalyValue: 'Cheapest' }
+                        { value: 'cheapest', dispalyValue: 'Cheapest' },
                     ]
-                },
-                value: ''
+                }
+               
             }
         },
         loading: false
@@ -83,16 +83,17 @@ class ContactData extends Component {
     }
 
     render() {
-        const formElementtsArray = [];
+        let formElementtsArray = [];
 
         for (let key in this.state.orderForm) {
-
+            
             formElementtsArray.push({
                 id: key,
                 config: this.state.orderForm[key]
             });
+            
         }
-
+        console.log(formElementtsArray);
 
         let form = (
             <form>
