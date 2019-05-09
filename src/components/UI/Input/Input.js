@@ -36,7 +36,7 @@ const input = (props) => {
                     {props.elementConfig.options.map(option => (
 
                         <option key={option.value} value={option.value}>
-                            {option.dispalyValue}
+                            {option.displayValue}
                         </option>
 
                     ))}

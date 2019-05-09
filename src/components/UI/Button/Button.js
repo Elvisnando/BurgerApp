@@ -5,8 +5,10 @@ import classes from './Button.css'
 const button = (props) => (
 
     <button
-    className={[classes.Button, classes[props.btnType]].join(' ')}
-    onClick={props.cliked}>{props.children}</button>
+
+        disabled={props.disabled}
+        className={[classes.Button, classes[props.btnType]].join(' ')}
+        onClick={props.cliked}>{props.children}</button>
 
 );
 
