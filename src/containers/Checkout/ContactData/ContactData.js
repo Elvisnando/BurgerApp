@@ -8,6 +8,7 @@ class ContactData extends Component {
 
     state = {
         orderForm: {
+            control: [],
             name: {
                 elementType: 'input',
                 elementConfig: {
@@ -18,7 +19,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched:false
             },
             street: {
                 elementType: 'input',
@@ -30,7 +32,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched:false
             },
             zipCode: {
                 elementType: 'input',
@@ -44,7 +47,8 @@ class ContactData extends Component {
                     minLenght: 5,
                     maxLenght: 5
                 },
-                valid: false
+                valid: false,
+                touched:false
             },
             contry: {
                 elementType: 'input',
@@ -56,7 +60,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched:false
             },
             email: {
                 elementType: 'input',
@@ -68,7 +73,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched:false
             },
             deliverMethod: {
                 elementType: 'select',
@@ -79,13 +85,11 @@ class ContactData extends Component {
                     ]
                 },
                 value: '',
-                validation: {
-                    required: true
-                },
-                valid: false
+                touched:false
 
             }
         },
+        formIsValid: false,
         loading: false
     }
 
@@ -116,6 +120,7 @@ class ContactData extends Component {
 
     checkValidity(value, rules) {
         let isValid = true;
+        if(rules) {
         if(rules.required) {
             isValid = value.trim() !== '' && isValid;
         }
@@ -127,6 +132,7 @@ class ContactData extends Component {
         if(rules.maxLenght) {
             isValid = value.length <= rules.maxLenght && isValid;
         }
+    }
         console.log(isValid);
 
         return isValid;
@@ -141,10 +147,16 @@ class ContactData extends Component {
         };
         updateFormElement.value = event.target.value;
         updateFormElement.valid = this.checkValidity(updateFormElement.value, updateFormElement.validation);
+        updateFormElement.touched = true;
         updateOrderForm[inputIdentifi] = updateFormElement;
-        //console.log(updateFormElement);
+        
 
-        this.setState({ orderForm: updateOrderForm });
+        let formIsValid = true;
+        for (let inputIdentifi in updateOrderForm) {
+            formIsValid = updateOrderForm[inputIdentifi].valid && formIsValid;
+        }
+
+        this.setState({ orderForm: updateOrderForm, formIsValid : formIsValid });
     }
 
 
@@ -171,9 +183,12 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation}
+                        touched = {formElement.config.touched}
                         changed={(event) => this.inputChangeHandler(event, formElement.id)} />
                 ))}
-                <Button btnType="Success" >ORDER</Button>
+                <Button btnType="Success" disabled={!this.state.formIsValid} >ORDER</Button>
             </form>
         );
 
