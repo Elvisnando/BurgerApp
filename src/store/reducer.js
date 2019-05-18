@@ -7,7 +7,7 @@ const initialState = {
         bacon: 0,
         meat: 0
     },
-    totalPrice: 2,
+    totalPrice: 2
 
 };
 
