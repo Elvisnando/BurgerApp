@@ -3,8 +3,8 @@ import * as actionType from './actions';
 const initialState = {
     ingredients: {
         salad: 0,
-        bacon: 0,
         cheese: 0,
+        bacon: 0,
         meat: 0
     },
     totalPrice: 2,
@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
                 ingredients: {
                     ...state.ingredients, //for that reason i need another copy
                     //I use [] Es6 for selec and ovveraid a proprety in this case a ingredit
-                    [action.ingredientName]: state.ingredients[action.ingredientname] + 1
+                    [action.ingredientName]: state.ingredients[action.ingredientName] + 1
                 }
             };
         case actionType.REMOVE_INGREDIENT:
@@ -29,7 +29,7 @@ const reducer = (state = initialState, action) => {
                 ingredients: {
                     ...state.ingredients, //for that reason i need another copy
                     //I use [] Es6 for selec and ovveraid a proprety in this case a ingredit
-                    [action.ingredientName]: state.ingredients[action.ingredientname] - 1
+                    [action.ingredientName]: state.ingredients[action.ingredientName] - 1
                 }
 
             };
