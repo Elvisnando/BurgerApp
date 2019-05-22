@@ -18,7 +18,6 @@ const INGREDIENT_PRICE = {
     meat: 2
 };
 
-
 const reducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -45,11 +44,7 @@ const reducer = (state = initialState, action) => {
             };
         default:
     }
-
-
     return state;
-
-
 };
 
 export default reducer;
