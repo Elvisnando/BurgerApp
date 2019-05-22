@@ -194,7 +194,7 @@ const mapStateToProps = state => {
     return {
         ings: state.ingredients,
         price: state.totalPrice
-
+        
     }
 };
 
